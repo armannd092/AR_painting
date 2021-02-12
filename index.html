@@ -2,9 +2,40 @@
 <html>
 <head>
 	<title>Ladislas Exhibition</title>
+	<meta name="apple-mobile-web-app-capable" content="yes">
 	<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
 	<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+	<script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v4.1.2/dist/aframe-extras.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="main.css">
+	<script>
+		AFRAME.registerComponent('vidhandler', {
+			init: function() {
+				this.toggle = false;
+				this.vid = document.querySelector("#vid");	
+				this.vid.pause();
+			},
+			tick: function() {
+				if (this.el.object3D.visible == true) {
+					if (!this.toggle) {
+						this.toggle = true;
+						this.vid.play();
+					}
+				} else {
+					this.toggle = false;
+					this.vid.pause();
+				}
+			}
+		});
+
+		function refrespage() {
+			location.reload();
+		}
+
+		function playvid() {
+			vid.play();
+		}
+	</script>
 </head>
 
 	<body style='margin : 0px; overflow: hidden;'>
@@ -12,21 +43,23 @@
 		<div class="arjs-loader">
 			<div>Loading, please wait...</div>
 		</div>
-			<a-scene
-					vr-mode-ui="enabled: false;"
-					renderer="logarithmicDepthBuffer: true;"
-					embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
-					
-					<a-nft
-							type="nft" 
-							url="img_tracker/painting"
-							smooth="true" 
-							smoothCount="10" 
-							smoothTolerance="0.01" 
-							smoothThreshold="5">
-							<a-video src="animation/animated_painting.mp4"></a-video>
-					</a-nft>
-			<a-entity camera></a-entity>
-			</a-scene>
+		<a-scene embedded artoolkit='sourceType: webcam; detectionMode: mono; maxDetectionRate: 60; canvasWidth: 200; canvasHeight: 200'>
+			<a-assets>
+				<video preload="auto" id="vid" autoplay loop="true" src="animation/animated_painting.mp4" crossorigin webkit-playsinline playsinline controls>
+					<source src="animation/animated_painting.mp4">
+				 </video>
+			 </a-assets>
+				<a-nft
+						type="nft" 
+						url="img_tracker/painting"
+						smooth="true" 
+						smoothCount="10" 
+						smoothTolerance="0.01" 
+						smoothThreshold="5"
+						vidhandler>
+						<a-plane scale = '10 7.8 0' position='-4.5 0.1 -5.5' rotation="-90 0 0" material='transparent:true;src:#vid' controls></a-plane>
+				</a-nft>
+		<a-entity camera></a-entity>
+		</a-scene>
 	</body>
 </html>
