@@ -37,27 +37,27 @@
 		}
 	</script>
 </head>
-
 	<body style='margin : 0px; overflow: hidden;'>
 		<!-- minimal loader shown until image descriptors are loaded -->
-		<div class="arjs-loader">
+		<!--div class="arjs-loader">
 			<div>Loading, please wait...</div>
-		</div>
+		</div-->
 		<a-scene embedded artoolkit='sourceType: webcam; detectionMode: mono; maxDetectionRate: 60; canvasWidth: 200; canvasHeight: 200'>
 			<a-assets>
-				<video preload="auto" id="vid" autoplay loop="true" src="animation/animated_painting.mp4" crossorigin webkit-playsinline playsinline controls>
+				<video preload="auto" id="vid" muted="true"autoplay loop="true" src="animation/animated_painting.mp4" crossorigin webkit-playsinline playsinline controls>
 					<source src="animation/animated_painting.mp4">
 				 </video>
 			 </a-assets>
-				<a-nft
-						type="nft" 
-						url="img_tracker/painting"
-						smooth="true" 
-						smoothCount="10" 
-						smoothTolerance="0.01" 
-						smoothThreshold="5"
-						vidhandler>
-						<a-plane scale = '10 7.8 0' position='-4.5 0.1 -5.5' rotation="-90 0 0" material='transparent:true;src:#vid' controls></a-plane>
+				<a-nft 
+				type="nft" 
+				url="img_tracker/painting"
+				smooth="true" 
+				smoothCount="10" 
+				smoothTolerance="0.01" 
+				smoothThreshold="5"
+				vidhandler>
+						<a-plane scale = '10 7.8 0' position='-4.5 0.1 -5.5' rotation="-90 0 0" material='transparent:true;src:#vid' controls
+						></a-plane>
 				</a-nft>
 		<a-entity camera></a-entity>
 		</a-scene>
